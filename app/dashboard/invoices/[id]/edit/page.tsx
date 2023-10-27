@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
 import Form from "@/app/ui/invoices/edit-form";
 import { fetchCustomers, fetchInvoiceById } from "@/app/lib/data";
@@ -13,6 +15,10 @@ export default async function Page({ params }: PageProps) {
 
   const customers = await fetchCustomers();
   const invoice = await fetchInvoiceById(id);
+
+  if (!invoice) {
+    notFound();
+  }
 
   return (
     <main>
